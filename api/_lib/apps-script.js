@@ -43,7 +43,12 @@ export async function fetchInstitutesFromScript() {
     method: "GET",
   });
 
-  const payload = await response.json();
+  let payload;
+  try {
+    payload = await response.json();
+  } catch {
+    throw new Error("Apps Script returned an invalid response. Ensure it is deployed as a web app and the spreadsheet is configured correctly.");
+  }
 
   if (!response.ok || !payload.ok) {
     throw new Error(payload.error || "Unable to load answer keys.");
@@ -70,7 +75,12 @@ export async function sendLeadToScript(lead) {
     body: JSON.stringify(lead),
   });
 
-  const payload = await response.json();
+  let payload;
+  try {
+    payload = await response.json();
+  } catch {
+    throw new Error("Apps Script returned an invalid response. Ensure it is deployed as a web app and the spreadsheet is configured correctly.");
+  }
 
   if (!response.ok || !payload.ok) {
     throw new Error(payload.error || "Unable to process download.");
