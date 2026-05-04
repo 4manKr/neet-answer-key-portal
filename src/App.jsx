@@ -150,7 +150,9 @@ function App() {
     try {
       setSubmitting(true);
       setFormError("");
-      pendingWindow = window.open("", "_blank", "noopener,noreferrer");
+      // Must NOT use noopener/noreferrer — both cause window.open to return null,
+      // which would prevent navigating the popup to the download URL.
+      pendingWindow = window.open("", "_blank");
 
       const response = await fetch("/api/lead", {
         method: "POST",
