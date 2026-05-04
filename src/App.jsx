@@ -12,8 +12,6 @@ const initialForm = {
   phoneNumber: "",
 };
 
-const appsScriptUrl = import.meta.env.VITE_GOOGLE_SCRIPT_URL?.trim() || "";
-
 const sampleInstitutes = [
   {
     id: "sample-allen",
@@ -53,22 +51,19 @@ function App() {
       try {
         setLoading(true);
         setError("");
-        if (!appsScriptUrl) {
-          if (!cancelled) {
-            setInstitutes(sampleInstitutes);
-          }
-          return;
-        }
-
-        const response = await fetch(`${appsScriptUrl}?action=institutes`);
+        const response = await fetch("/api/institutes");
         const payload = await response.json();
 
-        if (!response.ok || !payload.ok) {
+        if (!response.ok) {
           throw new Error(payload.error || "Unable to load answer keys.");
         }
 
         if (!cancelled) {
-          setInstitutes(Array.isArray(payload.institutes) ? payload.institutes : []);
+          if (payload.source === "sample") {
+            setInstitutes(sampleInstitutes);
+          } else {
+            setInstitutes(Array.isArray(payload.institutes) ? payload.institutes : []);
+          }
         }
       } catch (loadError) {
         if (!cancelled) {
@@ -157,14 +152,10 @@ function App() {
       setFormError("");
       pendingWindow = window.open("", "_blank", "noopener,noreferrer");
 
-      if (!appsScriptUrl) {
-        throw new Error("Google Apps Script is not configured yet.");
-      }
-
-      const response = await fetch(appsScriptUrl, {
+      const response = await fetch("/api/lead", {
         method: "POST",
         headers: {
-          "Content-Type": "text/plain;charset=utf-8",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: formData.name.trim(),
@@ -208,11 +199,6 @@ function App() {
           <p className="hero-copy">
             Download institute answer keys for the exam held on May 3, 2026.
           </p>
-          {!appsScriptUrl ? (
-            <p className="hero-copy">
-              Sample data is showing now. Add your Google Apps Script URL to connect real institute links.
-            </p>
-          ) : null}
         </header>
 
         <section className="list-section" aria-label="Institute answer keys">

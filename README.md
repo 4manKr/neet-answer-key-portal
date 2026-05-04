@@ -9,6 +9,7 @@ Minimal React + Vite site for showing NEET 2026 answer key download links from m
 - Name and phone number capture before download
 - Google Sheets as the source for institute links
 - Google Apps Script as the backend layer for reading sheet data and logging downloads
+- Vercel API proxy to avoid browser-to-Apps-Script CORS issues
 - Vercel-ready frontend deployment
 
 ## Google Sheet Columns
@@ -54,14 +55,16 @@ Recommended leads sheet columns:
    - `npm install`
 4. Start the frontend:
    - `npm run dev`
+5. For the full proxy flow locally, run the app through `vercel dev`
 
 ## Vercel Deployment
 
 1. Create a new Vercel project from this folder
-2. Add `VITE_GOOGLE_SCRIPT_URL` in the Vercel dashboard
+2. Add `GOOGLE_SCRIPT_URL` in the Vercel dashboard
+3. `VITE_GOOGLE_SCRIPT_URL` is optional and only useful for local fallback compatibility
 3. Deploy the project
 
 ## Notes
 
-- If `VITE_GOOGLE_SCRIPT_URL` is not configured, the UI falls back to sample data so the design can still be previewed.
+- If `GOOGLE_SCRIPT_URL` is not configured, the Vercel API falls back to sample data for institute listing.
 - `instituteCode` is not required anymore.
