@@ -169,8 +169,8 @@ function App() {
               </div>
             )}
           </div>
-          <h1>Official Answer Keys</h1>
-          <p className="hero-sub">Enter your details once — your file downloads instantly.</p>
+          <h1>NEET 2026 Answer Keys</h1>
+          <p className="hero-sub">All leading institute answer keys — compare &amp; verify your score.</p>
         </header>
 
         <section className="table-wrap" aria-label="Institute answer keys">
