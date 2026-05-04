@@ -18,7 +18,6 @@ const sampleInstitutes = [
   {
     id: "sample-allen",
     instituteName: "Allen Career Institute",
-    instituteCode: "ALLEN",
     codes: {
       "11": "https://drive.google.com/uc?export=download&id=1sampleCode11",
       "12": "https://drive.google.com/uc?export=download&id=1sampleCode12",
@@ -29,7 +28,6 @@ const sampleInstitutes = [
   {
     id: "sample-aakash",
     instituteName: "Aakash Institute",
-    instituteCode: "AAKASH",
     codes: {
       "11": "https://drive.google.com/uc?export=download&id=1sampleCode21",
       "12": "",
@@ -95,7 +93,6 @@ function App() {
   function openLeadForm(institute, requestedCode) {
     setSelectedRequest({
       instituteName: institute.instituteName,
-      instituteCode: institute.instituteCode,
       requestedCode,
       fileUrl: institute.codes?.[requestedCode] || "",
     });
@@ -173,7 +170,6 @@ function App() {
           name: formData.name.trim(),
           phoneNumber: formData.phoneNumber.trim(),
           instituteName: selectedRequest.instituteName,
-          instituteCode: selectedRequest.instituteCode,
           requestedCode: selectedRequest.requestedCode,
           fileUrl: selectedRequest.fileUrl,
         }),

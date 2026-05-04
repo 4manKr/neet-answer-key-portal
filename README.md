@@ -16,7 +16,6 @@ Minimal React + Vite site for showing NEET 2026 answer key download links from m
 The source sheet must include these exact headers:
 
 - `instituteName`
-- `instituteCode`
 - `code11Link`
 - `code12Link`
 - `code13Link`
@@ -28,7 +27,6 @@ Recommended leads sheet columns:
 - `name`
 - `phoneNumber`
 - `instituteName`
-- `instituteCode`
 - `requestedCode`
 - `fileUrl`
 - `directDownloadUrl`
@@ -38,7 +36,6 @@ Recommended leads sheet columns:
 1. Create a Google Sheet with one sheet named `institutes`
 2. Add these exact headers in row 1:
    - `instituteName`
-   - `instituteCode`
    - `code11Link`
    - `code12Link`
    - `code13Link`
@@ -67,4 +64,4 @@ Recommended leads sheet columns:
 ## Notes
 
 - If `VITE_GOOGLE_SCRIPT_URL` is not configured, the UI falls back to sample data so the design can still be previewed.
-- `instituteCode` is used internally for tracking and is not shown in the UI.
+- `instituteCode` is not required anymore.

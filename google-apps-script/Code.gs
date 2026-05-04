@@ -59,7 +59,6 @@ function getInstitutes_() {
 
   var indexes = {
     instituteName: headers.indexOf("instituteName"),
-    instituteCode: headers.indexOf("instituteCode"),
     code11Link: headers.indexOf("code11Link"),
     code12Link: headers.indexOf("code12Link"),
     code13Link: headers.indexOf("code13Link"),
@@ -76,12 +75,10 @@ function getInstitutes_() {
     return row.join("").trim() !== "";
   }).map(function(row, index) {
     var instituteName = String(row[indexes.instituteName] || "").trim();
-    var instituteCode = String(row[indexes.instituteCode] || "").trim();
 
     return {
-      id: instituteCode || instituteName || "row-" + (index + 1),
+      id: instituteName || "row-" + (index + 1),
       instituteName: instituteName,
-      instituteCode: instituteCode,
       codes: {
         "11": toDirectDownloadUrl_(row[indexes.code11Link]),
         "12": toDirectDownloadUrl_(row[indexes.code12Link]),
@@ -100,7 +97,6 @@ function appendLead_(payload, directDownloadUrl) {
     String(payload.name || "").trim(),
     String(payload.phoneNumber || "").trim(),
     String(payload.instituteName || "").trim(),
-    String(payload.instituteCode || "").trim(),
     String(payload.requestedCode || "").trim(),
     String(payload.fileUrl || "").trim(),
     directDownloadUrl
@@ -111,7 +107,6 @@ function validateLead_(payload) {
   var name = String(payload.name || "").trim();
   var phoneNumber = String(payload.phoneNumber || "").trim();
   var instituteName = String(payload.instituteName || "").trim();
-  var instituteCode = String(payload.instituteCode || "").trim();
   var requestedCode = String(payload.requestedCode || "").trim();
   var fileUrl = String(payload.fileUrl || "").trim();
 
@@ -127,7 +122,7 @@ function validateLead_(payload) {
     return "Enter a valid phone number.";
   }
 
-  if (!instituteName || !instituteCode || !requestedCode || !fileUrl) {
+  if (!instituteName || !requestedCode || !fileUrl) {
     return "Incomplete download request.";
   }
 
